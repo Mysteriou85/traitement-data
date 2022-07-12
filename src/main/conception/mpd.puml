@@ -1,0 +1,125 @@
+@startuml diagram de classe
+' Activer visuel "Ctrl + D"
+' *********
+' * Table *
+' *********
+
+class Film {
+    id : int
+    nom : varchar
+    plot : varchar
+    langue : varchar
+    anneeSortie : date
+    url : varchar
+    id_lieuTournage : int
+}
+
+class Acteur {
+    id : int
+    id_individu : int
+}
+
+class Individu {
+    id : int
+    identite : varchar
+    naissanceDate : date
+    naissanceLieu : varchar
+    url : varchar
+}
+
+class Pays {
+    id : int
+    nomPays : varchar
+    url : varchar
+}
+
+class LieuTournage {
+    id : int
+    lieuTournageVille : varchar
+    lieuTournageEtat : varchar
+    lieuTournagePays : varchar
+}
+
+class Genre {
+    id : int
+    typeGenre : varchar
+}
+
+class Role {
+    id : int
+    personnage : varchar
+}
+
+class Realisateur {
+    id : int
+    id_individu : int
+}
+
+' ************
+' * Jointure *
+' ************
+
+' Jointure entre Realisateur et Film
+class Realisateur_Film {
+    id_realisateur : int
+    id_film : int
+}
+
+' Jointure entre Film et Acteur
+class CastingPrincipal {
+    id_film : int
+    id_acteur : int
+}
+
+' Jointure entre Film et Acteur
+class Film_Acteur {
+    id_film : int
+    id_acteur : int
+}
+
+' Jointure entre Film et Role
+class Film_Role {
+    id_film : int
+    id_role : int
+}
+
+' Jointure entre Role et Acteur
+class Role_Acteur {
+    id_role : int
+    id_acteur : int
+}
+
+' Jointure entre Film et Genre
+class Film_Genre {
+    id_film : int
+    id_genre : int
+}
+
+' ********
+' * Lien *
+' ********
+
+Film -- Pays
+Film -- LieuTournage
+
+Film -- Realisateur_Film
+Realisateur_Film -- Realisateur
+
+Film -- Film_Genre
+Film_Genre -- Genre
+
+Film -- Film_Acteur
+Film -- CastingPrincipal
+CastingPrincipal -- Acteur
+Film -- Film_Role
+
+Role -- Role_Acteur
+Role_Acteur -- Acteur
+Film_Acteur -- Acteur
+
+Role -- Film_Role
+
+Individu -- Acteur
+Individu -- Realisateur
+
+@enduml
