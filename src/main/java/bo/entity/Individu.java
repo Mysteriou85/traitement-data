@@ -17,6 +17,9 @@ public class Individu {
     @GenericGenerator(name = "seqAdditif", strategy = "increment")
     private int id;
 
+    @Column(name = "ID_IMDP")
+    private String idImdp;
+
     @Column(name = "IDENTITE")
     private String identite;
 
@@ -30,16 +33,8 @@ public class Individu {
     private String url;
 
     // Constructor
-    public Individu(String identite, String naissanceDate, String naissanceLieu, String url) {
-        this.identite = identite;
-        this.naissanceDate = naissanceDate;
-        this.naissanceLieu = naissanceLieu;
-        this.url = url;
-    }
-
     public Individu() {
     }
-
 
     // Getter & Setter
 
@@ -81,5 +76,13 @@ public class Individu {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getIdImdp() {
+        return idImdp;
+    }
+
+    public void setIdImdp(String idImdp) {
+        this.idImdp = idImdp;
     }
 }

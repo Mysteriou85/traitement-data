@@ -9,8 +9,8 @@ public class TraitementDAO {
 
     private final EntityManager em;
 
-    public TraitementDAO() {
-        this.em = ConnectionDAO.getConnectionDAO();
+    public TraitementDAO(EntityManager em) {
+        this.em = em;
     }
 
     public void createActeur (Acteur acteur) {
