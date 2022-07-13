@@ -22,7 +22,7 @@ public class TestLecture {
             Object obj = jsonParser.parse(reader);
 
             JSONArray filmList = (JSONArray) obj;
-            System.out.println(filmList);
+//            System.out.println(filmList);
 
             filmList.forEach( emp -> parseActeurObject( (JSONObject) emp ) );
 
@@ -39,8 +39,8 @@ public class TestLecture {
     {
         JSONObject acteurObject = (JSONObject) acteur.get("roles");
 
-//        String identite = (String) acteurObject.get("identite");
-//        System.out.println(identite);
+        String identite = (String) acteurObject.get("film");
+        System.out.println(identite);
 //
 //        String naissance = (String) acteurObject.get("naissance");
 //        System.out.println(naissance);

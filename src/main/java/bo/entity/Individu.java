@@ -21,16 +21,16 @@ public class Individu {
     private String identite;
 
     @Column(name = "NAISSANCE_DATE")
-    private Date naissanceDate;
+    private String naissanceDate;
 
     @Column(name = "NAISSANCE_LIEU")
-    private Date naissanceLieu;
+    private String naissanceLieu;
 
     @Column(name = "URL")
     private String url;
 
     // Constructor
-    public Individu(String identite, Date naissanceDate, Date naissanceLieu, String url) {
+    public Individu(String identite, String naissanceDate, String naissanceLieu, String url) {
         this.identite = identite;
         this.naissanceDate = naissanceDate;
         this.naissanceLieu = naissanceLieu;
@@ -59,19 +59,19 @@ public class Individu {
         this.identite = identite;
     }
 
-    public Date getNaissanceDate() {
+    public String getNaissanceDate() {
         return naissanceDate;
     }
 
-    public void setNaissanceDate(Date naissanceDate) {
+    public void setNaissanceDate(String naissanceDate) {
         this.naissanceDate = naissanceDate;
     }
 
-    public Date getNaissanceLieu() {
+    public String getNaissanceLieu() {
         return naissanceLieu;
     }
 
-    public void setNaissanceLieu(Date naissanceLieu) {
+    public void setNaissanceLieu(String naissanceLieu) {
         this.naissanceLieu = naissanceLieu;
     }
 

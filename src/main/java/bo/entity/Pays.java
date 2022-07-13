@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "PAYS")
@@ -21,10 +22,15 @@ public class Pays {
     @Column(name = "URL")
     private String url;
 
+    @Column
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private Set<Film> films;
+
     // Constructor
-    public Pays(String nomPays, String url) {
+    public Pays(String nomPays, String url, Set<Film> films) {
         this.nomPays = nomPays;
         this.url = url;
+        this.films = films;
     }
 
     public Pays() {
@@ -53,5 +59,13 @@ public class Pays {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public Set<Film> getFilms() {
+        return films;
+    }
+
+    public void setFilms(Set<Film> films) {
+        this.films = films;
     }
 }

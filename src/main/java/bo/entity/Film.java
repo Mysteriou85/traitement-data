@@ -26,7 +26,7 @@ public class Film {
     private String langue;
 
     @Column(name = "ANNEE_SORTIE")
-    private Date anneeSortie;
+    private String anneeSortie;
 
     @Column(name = "URL")
     private String url;
@@ -74,6 +74,10 @@ public class Film {
     @JoinColumn(name = "ID_LIEU_TOURNAGE")
     private LieuTournage lieuTournage;
 
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_PAYS")
+    private Pays pays;
+
     // Constructor
     public Film() {
     }
@@ -81,14 +85,15 @@ public class Film {
     public Film(String nom,
                 String plot,
                 String langue,
-                Date anneeSortie,
+                String anneeSortie,
                 String url,
                 List<Acteur> acteurs,
                 List<Acteur> castingPrincipal,
                 List<Role> roles,
                 List<Realisateur> realisateurs,
                 List<Genre> genres,
-                LieuTournage lieuTournage) {
+                LieuTournage lieuTournage,
+                Pays pays) {
         this.nom = nom;
         this.plot = plot;
         this.langue = langue;
@@ -100,6 +105,7 @@ public class Film {
         this.realisateurs = realisateurs;
         this.genres = genres;
         this.lieuTournage = lieuTournage;
+        this.pays = pays;
     }
 
     // Getter & Setter
@@ -135,11 +141,11 @@ public class Film {
         this.langue = langue;
     }
 
-    public Date getAnneeSortie() {
+    public String getAnneeSortie() {
         return anneeSortie;
     }
 
-    public void setAnneeSortie(Date anneeSortie) {
+    public void setAnneeSortie(String anneeSortie) {
         this.anneeSortie = anneeSortie;
     }
 
@@ -197,5 +203,13 @@ public class Film {
 
     public void setLieuTournage(LieuTournage lieuTournage) {
         this.lieuTournage = lieuTournage;
+    }
+
+    public Pays getPays() {
+        return pays;
+    }
+
+    public void setPays(Pays pays) {
+        this.pays = pays;
     }
 }
