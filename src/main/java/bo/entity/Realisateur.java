@@ -3,6 +3,7 @@ package bo.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class Realisateur extends Individu {
             joinColumns = @JoinColumn(name="ID_REALISATEUR", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name="ID_FILM", referencedColumnName = "ID")
     )
-    private List<Film> films;
+    private List<Film> films = new ArrayList<>();
 
     // Constructor
     public Realisateur() {

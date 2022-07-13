@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -24,7 +25,7 @@ public class Pays {
 
     @Column
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private Set<Film> films;
+    private Set<Film> films = new HashSet<>();
 
     // Constructor
     public Pays(String nomPays, String url, Set<Film> films) {

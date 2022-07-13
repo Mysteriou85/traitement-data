@@ -3,6 +3,7 @@ package bo.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,14 +25,14 @@ public class Role {
             joinColumns = @JoinColumn(name="ID_ROLE", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name="ID_FILM", referencedColumnName = "ID")
     )
-    private List<Film> films;
+    private List<Film> films = new ArrayList<>();
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name="ROLE_ACTEUR",
             joinColumns = @JoinColumn(name="ID_ROLE", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name="ID_ACTEUR", referencedColumnName = "ID")
     )
-    private List<Acteur> acteurs;
+    private List<Acteur> acteurs = new ArrayList<>();
 
     // Constructor
     public Role() {

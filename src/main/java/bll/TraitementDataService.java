@@ -11,7 +11,7 @@ import java.util.List;
 
 public class TraitementDataService {
 
-    private TraitementDAO dao;
+    private static TraitementDAO dao;
 
     public TraitementDataService(EntityManager em) {
         this.dao = new TraitementDAO(em);
@@ -25,6 +25,7 @@ public class TraitementDataService {
 
     private static Acteur parseActeur(JSONObject a) {
         Acteur acteur = new Acteur();
+        acteur.setUrl(a.get("url").toString());
         acteur.setIdentite(a.get("identite").toString());
         acteur.setIdImdp(a.get("id").toString());
 
@@ -32,11 +33,17 @@ public class TraitementDataService {
         acteur.setNaissanceDate(naissanceJSON.get("dateNaissance").toString());
         acteur.setNaissanceLieu(naissanceJSON.get("lieuNaissance").toString());
 
+        List<Role> roleList = new ArrayList<>();
         // Observe les données dans "roles"
         JSONArray rolesJSON = (JSONArray) a.get("roles");
         for (Object o : rolesJSON) {
-            parseRole((JSONObject) o);
+            roleList.add(parseRole((JSONObject) o));
         }
+        for (Role role : roleList) {
+            role.getActeurs().add(acteur);
+        }
+
+        acteur.setRoles(roleList);
 
         return acteur;
     }
@@ -72,9 +79,10 @@ public class TraitementDataService {
         List<Genre> genreList = new ArrayList<>();
         JSONArray genresJSON = (JSONArray) f.get("genres");
         for (Object o : genresJSON) {
-            // Le tableau "genre" ne contient que des strings
+            // Le tableau "genre" contient que des strings
             genreList.add(parseGenre((String) o));
         }
+//        System.out.println(genreList);
         // La liste de genre est set dans film
         film.setGenres(genreList);
 
@@ -112,7 +120,16 @@ public class TraitementDataService {
 
         genre.setTypeGenre(g);
 
-        return genre;
+        return getGenre(genre);
+    }
+
+    public static Genre getGenre(Genre genreVerif) {
+        if(dao.getGenre(genreVerif) == null) {
+            dao.createGenre(genreVerif);
+            return genreVerif;
+        } else {
+            return dao.getGenre(genreVerif);
+        }
     }
 
     private static Pays parsePays(JSONObject p) {

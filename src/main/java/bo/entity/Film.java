@@ -3,6 +3,7 @@ package bo.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -39,35 +40,35 @@ public class Film {
         joinColumns = @JoinColumn(name="ID_FILM", referencedColumnName = "ID"),
         inverseJoinColumns = @JoinColumn(name="ID_ACTEUR", referencedColumnName = "ID")
     )
-    private List<Acteur> acteurs;
+    private List<Acteur> acteurs = new ArrayList<>();
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name="CASTING_PRINCIPAL",
             joinColumns = @JoinColumn(name="ID_FILM", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name="ID_ACTEUR", referencedColumnName = "ID")
     )
-    private List<Acteur> castingPrincipal;
+    private List<Acteur> castingPrincipal = new ArrayList<>();
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name="FILM_ROLE",
             joinColumns = @JoinColumn(name="ID_FILM", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name="ID_ROLE", referencedColumnName = "ID")
     )
-    private List<Role> roles;
+    private List<Role> roles = new ArrayList<>();
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name="REALISATEUR_FILM",
             joinColumns = @JoinColumn(name="ID_FILM", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name="ID_REALISATEUR", referencedColumnName = "ID")
     )
-    private List<Realisateur> realisateurs;
+    private List<Realisateur> realisateurs = new ArrayList<>();
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToMany
     @JoinTable(name="FILM_GENRE",
             joinColumns = @JoinColumn(name="ID_FILM", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name="ID_GENRE", referencedColumnName = "ID")
     )
-    private List<Genre> genres;
+    private List<Genre> genres = new ArrayList<>();
 
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)

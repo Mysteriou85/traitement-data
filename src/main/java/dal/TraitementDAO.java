@@ -74,11 +74,12 @@ public class TraitementDAO {
 //        return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
 //    }
 //
-//    public Genre getGenre(String libelle) {
-//        TypedQuery<Genre> query = em.createQuery("SELECT e FROM GENRE e WHERE e.libelle = :libelle", Genre.class);
-//        query.setParameter("libelle", libelle);
-//        return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
-//    }
+    public Genre getGenre(Genre genre) {
+        // note le typeGenre correspond à TYPE_GENRE
+        TypedQuery<Genre> query = em.createQuery("SELECT g FROM Genre g WHERE g.typeGenre = :genre", Genre.class);
+        query.setParameter("genre", genre.getTypeGenre());
+        return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
+    }
 //
 //    public Individu getIndividu(String libelle) {
 //        TypedQuery<Individu> query = em.createQuery("SELECT e FROM INDIVIDU e WHERE e.libelle = :libelle", Individu.class);

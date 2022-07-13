@@ -3,6 +3,7 @@ package bo.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,12 +20,12 @@ public class Genre {
     @Column(name = "TYPE_GENRE")
     private String typeGenre;
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToMany
     @JoinTable(name="FILM_GENRE",
             joinColumns = @JoinColumn(name="ID_GENRE", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name="ID_FILM", referencedColumnName = "ID")
     )
-    private List<Film> films;
+    private List<Film> films = new ArrayList<>();
 
     // Constructor
     public Genre(String typeGenre, List<Film> films) {
@@ -58,5 +59,13 @@ public class Genre {
 
     public void setFilms(List<Film> films) {
         this.films = films;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Genre{");
+        sb.append("typeGenre='").append(typeGenre).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }
