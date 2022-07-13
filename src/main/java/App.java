@@ -1,4 +1,5 @@
 import bo.entity.*;
+import dal.TraitementDAO;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -16,9 +17,10 @@ import java.util.List;
 
 public class App {
     public static void main(String[] args) {
-
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("traitement-data");
         EntityManager em = entityManagerFactory.createEntityManager();
+
+        TraitementDAO dao = new TraitementDAO();
 
         JSONParser jsonParser = new JSONParser();
         try (FileReader reader = new FileReader(
@@ -49,6 +51,7 @@ public class App {
         acteur.setNaissanceDate(naissanceJSON.get("dateNaissance").toString());
         acteur.setNaissanceLieu(naissanceJSON.get("lieuNaissance").toString());
 
+        // Observe les données dans "roles"
         JSONArray rolesJSON = (JSONArray) a.get("roles");
         for (Object o : rolesJSON) {
             parseRole((JSONObject) o);
@@ -61,9 +64,9 @@ public class App {
         Role role = new Role();
         role.setPersonnage(r.get("characterName").toString());
 
+        // Observe les données dans "film" et les ajoutes à une liste
         List<Film> filmList = new ArrayList<>();
         filmList.add(parseFilm((JSONObject) r.get("film")));
-
 
         role.setFilms(filmList);
         return role;
@@ -84,13 +87,17 @@ public class App {
         }
         film.setUrl(f.get("url").toString());
 
+        // Observe les données dans "genre" et les ajoutes à une liste
         List<Genre> genreList = new ArrayList<>();
         JSONArray genresJSON = (JSONArray) f.get("genres");
         for (Object o : genresJSON) {
+            // Le tableau "genre" ne contient que des strings
             genreList.add(parseGenre((String) o));
         }
+        // La liste de genre est set dans film
         film.setGenres(genreList);
 
+        // Observe les données dans "pays" et les set dans le film
         film.setPays(parsePays((JSONObject) f.get("pays")));
 
         if(f.get("lieuTournage") != null) {
