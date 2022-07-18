@@ -23,6 +23,7 @@ public class TraitementDataService {
         dao.createActeur(acteur);
     }
 
+    // parse ACTEUR
     private static Acteur parseActeur(JSONObject a) {
         Acteur acteur = new Acteur();
         acteur.setUrl(a.get("url").toString());
@@ -48,6 +49,7 @@ public class TraitementDataService {
         return acteur;
     }
 
+    // Parse ROLE
     private static Role parseRole(JSONObject r) {
         Role role = new Role();
         role.setPersonnage(r.get("characterName").toString());
@@ -60,6 +62,7 @@ public class TraitementDataService {
         return role;
     }
 
+    // parse FILM
     private static Film parseFilm(JSONObject f) {
         Film film = new Film();
 
@@ -115,6 +118,7 @@ public class TraitementDataService {
         return film;
     }
 
+    // Parse GENRE
     private static Genre parseGenre(String g) {
         Genre genre = new Genre();
 
@@ -123,6 +127,7 @@ public class TraitementDataService {
         return getGenre(genre);
     }
 
+    // Get GENRE
     public static Genre getGenre(Genre genreVerif) {
         if(dao.getGenre(genreVerif) == null) {
             dao.createGenre(genreVerif);
@@ -132,6 +137,7 @@ public class TraitementDataService {
         }
     }
 
+    // parse PAYS
     private static Pays parsePays(JSONObject p) {
         Pays pays = new Pays();
 
@@ -140,9 +146,20 @@ public class TraitementDataService {
             pays.setUrl(p.get("url").toString());
         }
 
-        return pays;
+        return getPays(pays);
     }
 
+    // Get Pays
+    public static Pays getPays (Pays paysVerif) {
+        if(dao.getPays(paysVerif) == null) {
+            dao.createPays(paysVerif);
+            return paysVerif;
+        } else {
+            return dao.getPays(paysVerif);
+        }
+    }
+
+    // parse LIEU TOURNAGE
     private static LieuTournage parseLieuTournage(JSONObject l) {
         LieuTournage lieuTournage = new LieuTournage();
 
@@ -151,6 +168,17 @@ public class TraitementDataService {
         lieuTournage.setLieuTournagePays(l.get("pays").toString());
 
         return lieuTournage;
+    }
+
+    // get LIEU TOURNAGE
+    // NOTE : A revoir, cela ne fonctionne pas et cela ne prend pas en compte les films qui n'ont pas de ville
+    public static LieuTournage getLieuTournage (LieuTournage lieuTournageVerif) {
+        if(dao.getLieuTournage(lieuTournageVerif) == null) {
+            dao.createLieuTournage(lieuTournageVerif);
+            return lieuTournageVerif;
+        } else {
+            return dao.getLieuTournage(lieuTournageVerif);
+        }
     }
 
     private static Realisateur parseRealisateur(JSONObject r) {

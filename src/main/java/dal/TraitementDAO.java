@@ -73,32 +73,33 @@ public class TraitementDAO {
 //        query.setParameter("libelle", libelle);
 //        return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
 //    }
-//
+
     public Genre getGenre(Genre genre) {
         // note le typeGenre correspond à TYPE_GENRE
         TypedQuery<Genre> query = em.createQuery("SELECT g FROM Genre g WHERE g.typeGenre = :genre", Genre.class);
         query.setParameter("genre", genre.getTypeGenre());
         return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
     }
-//
+
 //    public Individu getIndividu(String libelle) {
 //        TypedQuery<Individu> query = em.createQuery("SELECT e FROM INDIVIDU e WHERE e.libelle = :libelle", Individu.class);
 //        query.setParameter("libelle", libelle);
 //        return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
 //    }
-//
-//    public LieuTournage getLieuTournage(String libelle) {
-//        TypedQuery<LieuTournage> query = em.createQuery("SELECT e FROM LIEU_TOURNAGE e WHERE e.libelle = :libelle", LieuTournage.class);
-//        query.setParameter("libelle", libelle);
-//        return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
-//    }
-//
-//    public Pays getPays(String libelle) {
-//        TypedQuery<Pays> query = em.createQuery("SELECT e FROM PAYS e WHERE e.libelle = :libelle", Pays.class);
-//        query.setParameter("libelle", libelle);
-//        return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
-//    }
-//
+
+    // NOTE : A revoir, cela ne fonctionne pas et cela ne prend pas en compte les films qui n'ont pas de ville
+    public LieuTournage getLieuTournage(LieuTournage lieuTournage) {
+        TypedQuery<LieuTournage> query = em.createQuery("SELECT l FROM LieuTournage l WHERE l.lieuTournageVille = :lieuTournage", LieuTournage.class);
+        query.setParameter("lieuTournage", lieuTournage.getLieuTournageVille());
+        return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
+    }
+
+    public Pays getPays(Pays pays) {
+        TypedQuery<Pays> query = em.createQuery("SELECT p FROM Pays p WHERE p.nomPays = :pays", Pays.class);
+        query.setParameter("pays", pays.getNomPays());
+        return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
+    }
+
 //    public Realisateur getRealisateur(String libelle) {
 //        TypedQuery<Realisateur> query = em.createQuery("SELECT e FROM REALISATEUR e WHERE e.libelle = :libelle", Realisateur.class);
 //        query.setParameter("libelle", libelle);
