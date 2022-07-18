@@ -62,17 +62,11 @@ public class TraitementDAO {
     }
 
     // A MODIFIER
-//    public Acteur getActeur(String libelle) {
-//        TypedQuery<Acteur> query = em.createQuery("SELECT e FROM ACTEUR e WHERE e.libelle = :libelle", Acteur.class);
-//        query.setParameter("libelle", libelle);
-//        return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
-//    }
-//
-//    public Film getFilm(String libelle) {
-//        TypedQuery<Film> query = em.createQuery("SELECT e FROM FILM e WHERE e.libelle = :libelle", Film.class);
-//        query.setParameter("libelle", libelle);
-//        return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
-//    }
+    public Film getFilm(Film film) {
+        TypedQuery<Film> query = em.createQuery("SELECT f FROM Film f WHERE f.url = :film", Film.class);
+        query.setParameter("film", film.getUrl());
+        return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
+    }
 
     public Genre getGenre(Genre genre) {
         // note le typeGenre correspond à TYPE_GENRE
@@ -105,12 +99,12 @@ public class TraitementDAO {
 //        query.setParameter("libelle", libelle);
 //        return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
 //    }
-//
-//    public Role getRole(String libelle) {
-//        TypedQuery<Role> query = em.createQuery("SELECT e FROM ROLE e WHERE e.libelle = :libelle", Role.class);
-//        query.setParameter("libelle", libelle);
-//        return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
-//    }
+
+    public Role getRole(Role role) {
+        TypedQuery<Role> query = em.createQuery("SELECT r FROM Role r WHERE r.personnage = :role", Role.class);
+        query.setParameter("role", role.getPersonnage());
+        return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
+    }
 
 
 }

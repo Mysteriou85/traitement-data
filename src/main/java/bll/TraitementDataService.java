@@ -59,7 +59,18 @@ public class TraitementDataService {
         filmList.add(parseFilm((JSONObject) r.get("film")));
 
         role.setFilms(filmList);
-        return role;
+        //return role;
+        return getRole(role);
+    }
+
+    // get ROLE
+    public static Role getRole(Role roleVerif) {
+        if(dao.getRole(roleVerif) == null) {
+            dao.createRole(roleVerif);
+            return roleVerif;
+        } else {
+            return dao.getRole(roleVerif);
+        }
     }
 
     // parse FILM
@@ -85,7 +96,7 @@ public class TraitementDataService {
             // Le tableau "genre" contient que des strings
             genreList.add(parseGenre((String) o));
         }
-//        System.out.println(genreList);
+
         // La liste de genre est set dans film
         film.setGenres(genreList);
 
@@ -115,7 +126,18 @@ public class TraitementDataService {
             castingPrincipalList.add(parseCastingPrincipal((JSONObject) o));
         }
 
-        return film;
+        //return film;
+        return getFilm(film);
+    }
+
+    // get FILM
+    public static Film getFilm(Film filmVerif) {
+        if(dao.getFilm(filmVerif) == null) {
+            dao.createFilm(filmVerif);
+            return filmVerif;
+        } else {
+            return dao.getFilm(filmVerif);
+        }
     }
 
     // Parse GENRE
@@ -167,6 +189,7 @@ public class TraitementDataService {
         lieuTournage.setLieuTournageEtat(l.get("etatDept").toString());
         lieuTournage.setLieuTournagePays(l.get("pays").toString());
 
+        //return dao.getLieuTournage(lieuTournage);
         return lieuTournage;
     }
 
