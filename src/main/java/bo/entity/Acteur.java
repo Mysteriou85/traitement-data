@@ -9,7 +9,28 @@ import java.util.List;
 
 @Entity
 @Table(name = "ACTEUR")
-public class Acteur extends Individu {
+public class Acteur {
+
+    @Id
+    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seqAdditif")
+    @GenericGenerator(name = "seqAdditif", strategy = "increment")
+    private int id;
+
+    @Column(name = "ID_IMDP")
+    private String idImdp;
+
+    @Column(name = "IDENTITE")
+    private String identite;
+
+    @Column(name = "NAISSANCE_DATE")
+    private String naissanceDate;
+
+    @Column(name = "NAISSANCE_LIEU")
+    private String naissanceLieu;
+
+    @Column(name = "URL")
+    private String url;
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name="FILM_ACTEUR",
@@ -43,6 +64,54 @@ public class Acteur extends Individu {
     }
 
     // Getter & Setter
+    public String getIdImdp() {
+        return idImdp;
+    }
+
+    public void setIdImdp(String idImdp) {
+        this.idImdp = idImdp;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getIdentite() {
+        return identite;
+    }
+
+    public void setIdentite(String identite) {
+        this.identite = identite;
+    }
+
+    public String getNaissanceDate() {
+        return naissanceDate;
+    }
+
+    public void setNaissanceDate(String naissanceDate) {
+        this.naissanceDate = naissanceDate;
+    }
+
+    public String getNaissanceLieu() {
+        return naissanceLieu;
+    }
+
+    public void setNaissanceLieu(String naissanceLieu) {
+        this.naissanceLieu = naissanceLieu;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public List<Film> getFilms() {
         return films;
     }

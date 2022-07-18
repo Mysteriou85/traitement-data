@@ -24,7 +24,7 @@ public class Pays {
     private String url;
 
     @Column
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "pays")
     private Set<Film> films = new HashSet<>();
 
     // Constructor

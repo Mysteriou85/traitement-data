@@ -1,5 +1,5 @@
 @startuml diagram de classe
-' Activer visuel "Ctrl + D"
+' Activer visuel "Alt + D"
 ' *********
 ' * Table *
 ' *********
@@ -15,11 +15,6 @@ class Film {
 }
 
 class Acteur {
-    id : int
-    id_individu : int
-}
-
-class Individu {
     id : int
     identite : varchar
     naissanceDate : date
@@ -52,7 +47,8 @@ class Role {
 
 class Realisateur {
     id : int
-    id_individu : int
+    identite : varchar
+    url : varchar
 }
 
 ' ************
@@ -118,8 +114,5 @@ Role_Acteur -- Acteur
 Film_Acteur -- Acteur
 
 Role -- Film_Role
-
-Individu -- Acteur
-Individu -- Realisateur
 
 @enduml

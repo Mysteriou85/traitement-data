@@ -27,7 +27,7 @@ public class LieuTournage {
     private String lieuTournagePays;
 
     @Column
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "lieuTournage")
     private Set<Film> films = new HashSet<>();
 
     // Constructor

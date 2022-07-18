@@ -31,11 +31,11 @@ public class TraitementDAO {
         em.getTransaction().commit();
     }
 
-    public void createIndividu (Individu individu) {
-        em.getTransaction().begin();
-        em.persist(individu);
-        em.getTransaction().commit();
-    }
+//    public void createIndividu (Individu individu) {
+//        em.getTransaction().begin();
+//        em.persist(individu);
+//        em.getTransaction().commit();
+//    }
 
     public void createLieuTournage (LieuTournage lieuTournage) {
         em.getTransaction().begin();
@@ -63,8 +63,9 @@ public class TraitementDAO {
 
     // A MODIFIER
     public Film getFilm(Film film) {
-        TypedQuery<Film> query = em.createQuery("SELECT f FROM Film f WHERE f.url = :film", Film.class);
-        query.setParameter("film", film.getUrl());
+        TypedQuery<Film> query = em.createQuery("SELECT f FROM Film f WHERE f.nom = :film AND f.url = :url", Film.class);
+        query.setParameter("film", film.getNom());
+        query.setParameter("url", film.getUrl());
         return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
     }
 
@@ -83,8 +84,10 @@ public class TraitementDAO {
 
     // NOTE : A revoir, cela ne fonctionne pas et cela ne prend pas en compte les films qui n'ont pas de ville
     public LieuTournage getLieuTournage(LieuTournage lieuTournage) {
-        TypedQuery<LieuTournage> query = em.createQuery("SELECT l FROM LieuTournage l WHERE l.lieuTournageVille = :lieuTournage", LieuTournage.class);
-        query.setParameter("lieuTournage", lieuTournage.getLieuTournageVille());
+        TypedQuery<LieuTournage> query = em.createQuery("SELECT l FROM LieuTournage l WHERE l.lieuTournageVille = :lieuTournageVille AND l.lieuTournageEtat = :lieuTournageEtat AND l.lieuTournagePays = :lieuTournagePays", LieuTournage.class);
+        query.setParameter("lieuTournageVille", lieuTournage.getLieuTournageVille());
+        query.setParameter("lieuTournageEtat", lieuTournage.getLieuTournageEtat());
+        query.setParameter("lieuTournagePays", lieuTournage.getLieuTournagePays());
         return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
     }
 
