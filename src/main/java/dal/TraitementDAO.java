@@ -94,11 +94,17 @@ public class TraitementDAO {
         return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
     }
 
-//    public Realisateur getRealisateur(String libelle) {
-//        TypedQuery<Realisateur> query = em.createQuery("SELECT e FROM REALISATEUR e WHERE e.libelle = :libelle", Realisateur.class);
-//        query.setParameter("libelle", libelle);
-//        return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
-//    }
+    public Realisateur getRealisateur(Realisateur realisateur) {
+        TypedQuery<Realisateur> query = em.createQuery("SELECT r FROM Realisateur r WHERE r.identite = :realisateur", Realisateur.class);
+        query.setParameter("realisateur", realisateur.getIdentite());
+        return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
+    }
+
+    public Acteur getActeur(Acteur acteur) {
+        TypedQuery<Acteur> query = em.createQuery("SELECT a FROM Acteur a WHERE a.identite = :acteur", Acteur.class);
+        query.setParameter("acteur", acteur.getIdentite());
+        return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
+    }
 
     public Role getRole(Role role) {
         TypedQuery<Role> query = em.createQuery("SELECT r FROM Role r WHERE r.personnage = :role", Role.class);

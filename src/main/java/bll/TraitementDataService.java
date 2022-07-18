@@ -101,7 +101,9 @@ public class TraitementDataService {
         film.setGenres(genreList);
 
         // Observe les données dans "pays" et les set dans le film
-        film.setPays(parsePays((JSONObject) f.get("pays")));
+        if(f.get("pays") != null ) {
+            film.setPays(parsePays((JSONObject) f.get("pays")));
+        }
 
         if(f.get("lieuTournage") != null) {
             film.setLieuTournage(parseLieuTournage((JSONObject) f.get("lieuTournage")));
@@ -119,12 +121,14 @@ public class TraitementDataService {
         for (Object o : acteurJSON) {
             acteurList.add(parseActeurListe((JSONObject) o));
         }
+        film.setActeurs(acteurList);
 
         List<Acteur> castingPrincipalList = new ArrayList<>();
         JSONArray castingPrincipalJSON = (JSONArray) f.get("castingPrincipal");
         for (Object o : castingPrincipalJSON) {
             castingPrincipalList.add(parseCastingPrincipal((JSONObject) o));
         }
+        film.setCastingPrincipal(castingPrincipalList);
 
         //return film;
         return getFilm(film);
@@ -163,10 +167,8 @@ public class TraitementDataService {
     private static Pays parsePays(JSONObject p) {
         Pays pays = new Pays();
 
-        if(p != null) {
-            pays.setNomPays(p.get("nom").toString());
-            pays.setUrl(p.get("url").toString());
-        }
+        pays.setNomPays(p.get("nom").toString());
+        pays.setUrl(p.get("url").toString());
 
         return getPays(pays);
     }
@@ -204,13 +206,25 @@ public class TraitementDataService {
         }
     }
 
+    // parse REALISATEUR
     private static Realisateur parseRealisateur(JSONObject r) {
         Realisateur realisateur = new Realisateur();
 
         realisateur.setIdentite(r.get("identite").toString());
         realisateur.setUrl(r.get("url").toString());
 
-        return realisateur;
+        //return realisateur;
+        return getRealisateur(realisateur);
+    }
+
+    // get REALISATEUR
+    public static Realisateur getRealisateur (Realisateur realisateurVerif) {
+        if(dao.getRealisateur(realisateurVerif) == null) {
+            dao.createRealisateur(realisateurVerif);
+            return realisateurVerif;
+        } else {
+            return dao.getRealisateur(realisateurVerif);
+        }
     }
 
     private static Acteur parseActeurListe(JSONObject a) {
@@ -228,7 +242,8 @@ public class TraitementDataService {
             acteur.setNaissanceLieu(naissanceJSON.get("lieuNaissance").toString());
         }
 
-        return acteur;
+        //return acteur;
+        return getActeur(acteur);
     }
 
     private static Acteur parseCastingPrincipal(JSONObject a) {
@@ -247,7 +262,18 @@ public class TraitementDataService {
             acteur.setNaissanceLieu(naissanceJSON.get("lieuNaissance").toString());
         }
 
-        return acteur;
+        //return acteur;
+        return getActeur(acteur);
+    }
+
+    // get ACTEUR
+    public static Acteur getActeur (Acteur acteurVerif) {
+        if(dao.getActeur(acteurVerif) == null) {
+            dao.createActeur(acteurVerif);
+            return acteurVerif;
+        } else {
+            return dao.getActeur(acteurVerif);
+        }
     }
 
 }
