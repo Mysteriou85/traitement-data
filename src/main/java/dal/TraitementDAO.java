@@ -31,12 +31,6 @@ public class TraitementDAO {
         em.getTransaction().commit();
     }
 
-//    public void createIndividu (Individu individu) {
-//        em.getTransaction().begin();
-//        em.persist(individu);
-//        em.getTransaction().commit();
-//    }
-
     public void createLieuTournage (LieuTournage lieuTournage) {
         em.getTransaction().begin();
         em.persist(lieuTournage);
@@ -76,18 +70,14 @@ public class TraitementDAO {
         return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
     }
 
-//    public Individu getIndividu(String libelle) {
-//        TypedQuery<Individu> query = em.createQuery("SELECT e FROM INDIVIDU e WHERE e.libelle = :libelle", Individu.class);
-//        query.setParameter("libelle", libelle);
-//        return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
-//    }
-
-    // NOTE : A revoir, cela ne fonctionne pas et cela ne prend pas en compte les films qui n'ont pas de ville
     public LieuTournage getLieuTournage(LieuTournage lieuTournage) {
-        TypedQuery<LieuTournage> query = em.createQuery("SELECT l FROM LieuTournage l WHERE l.lieuTournageVille = :lieuTournageVille AND l.lieuTournageEtat = :lieuTournageEtat AND l.lieuTournagePays = :lieuTournagePays", LieuTournage.class);
-        query.setParameter("lieuTournageVille", lieuTournage.getLieuTournageVille());
-        query.setParameter("lieuTournageEtat", lieuTournage.getLieuTournageEtat());
+        TypedQuery<LieuTournage> query = em.createQuery("SELECT l FROM LieuTournage l WHERE " +
+                "l.lieuTournagePays = :lieuTournagePays AND " +
+                "l.lieuTournageEtat = :lieuTournageEtat AND " +
+                "l.lieuTournageVille = :lieuTournageVille", LieuTournage.class);
         query.setParameter("lieuTournagePays", lieuTournage.getLieuTournagePays());
+        query.setParameter("lieuTournageEtat", lieuTournage.getLieuTournageEtat());
+        query.setParameter("lieuTournageVille", lieuTournage.getLieuTournageVille());
         return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
     }
 

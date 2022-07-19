@@ -130,7 +130,6 @@ public class TraitementDataService {
         }
         film.setCastingPrincipal(castingPrincipalList);
 
-        //return film;
         return getFilm(film);
     }
 
@@ -191,12 +190,11 @@ public class TraitementDataService {
         lieuTournage.setLieuTournageEtat(l.get("etatDept").toString());
         lieuTournage.setLieuTournagePays(l.get("pays").toString());
 
-        //return dao.getLieuTournage(lieuTournage);
-        return lieuTournage;
+        return getLieuTournage(lieuTournage);
+//        return lieuTournage;
     }
 
     // get LIEU TOURNAGE
-    // NOTE : A revoir, cela ne fonctionne pas et cela ne prend pas en compte les films qui n'ont pas de ville
     public static LieuTournage getLieuTournage (LieuTournage lieuTournageVerif) {
         if(dao.getLieuTournage(lieuTournageVerif) == null) {
             dao.createLieuTournage(lieuTournageVerif);
@@ -213,7 +211,6 @@ public class TraitementDataService {
         realisateur.setIdentite(r.get("identite").toString());
         realisateur.setUrl(r.get("url").toString());
 
-        //return realisateur;
         return getRealisateur(realisateur);
     }
 
@@ -242,7 +239,6 @@ public class TraitementDataService {
             acteur.setNaissanceLieu(naissanceJSON.get("lieuNaissance").toString());
         }
 
-        //return acteur;
         return getActeur(acteur);
     }
 
@@ -262,7 +258,6 @@ public class TraitementDataService {
             acteur.setNaissanceLieu(naissanceJSON.get("lieuNaissance").toString());
         }
 
-        //return acteur;
         return getActeur(acteur);
     }
 
