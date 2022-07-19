@@ -1,7 +1,7 @@
 package bll;
 
 import bo.entity.*;
-import dal.TraitementDAO;
+import dal.entityDAO.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -11,16 +11,28 @@ import java.util.List;
 
 public class TraitementDataService {
 
-    private static TraitementDAO dao;
+    private static ActeurDAO acteurDAO;
+    private static FilmDAO filmDAO;
+    private static GenreDAO genreDAO;
+    private static LieuTournageDAO lieuTournageDAO;
+    private static PaysDAO paysDAO;
+    private static RealisateurDAO realisateurDAO;
+    private static RoleDAO roleDAO;
 
     public TraitementDataService(EntityManager em) {
-        this.dao = new TraitementDAO(em);
+        acteurDAO = new ActeurDAO(em);
+        filmDAO = new FilmDAO(em);
+        genreDAO = new GenreDAO(em);
+        lieuTournageDAO = new LieuTournageDAO(em);
+        paysDAO = new PaysDAO(em);
+        realisateurDAO = new RealisateurDAO(em);
+        roleDAO = new RoleDAO(em);
     }
 
     public void saveActeur(Object o) {
 
         Acteur acteur = parseActeur((JSONObject) o);
-        dao.createActeur(acteur);
+        acteurDAO.createActeur(acteur);
     }
 
     // parse ACTEUR
@@ -65,11 +77,11 @@ public class TraitementDataService {
 
     // get ROLE
     public static Role getRole(Role roleVerif) {
-        if(dao.getRole(roleVerif) == null) {
-            dao.createRole(roleVerif);
+        if(roleDAO.getRole(roleVerif) == null) {
+            roleDAO.createRole(roleVerif);
             return roleVerif;
         } else {
-            return dao.getRole(roleVerif);
+            return roleDAO.getRole(roleVerif);
         }
     }
 
@@ -135,11 +147,11 @@ public class TraitementDataService {
 
     // get FILM
     public static Film getFilm(Film filmVerif) {
-        if(dao.getFilm(filmVerif) == null) {
-            dao.createFilm(filmVerif);
+        if(filmDAO.getFilm(filmVerif) == null) {
+            filmDAO.createFilm(filmVerif);
             return filmVerif;
         } else {
-            return dao.getFilm(filmVerif);
+            return filmDAO.getFilm(filmVerif);
         }
     }
 
@@ -154,11 +166,11 @@ public class TraitementDataService {
 
     // Get GENRE
     public static Genre getGenre(Genre genreVerif) {
-        if(dao.getGenre(genreVerif) == null) {
-            dao.createGenre(genreVerif);
+        if(genreDAO.getGenre(genreVerif) == null) {
+            genreDAO.createGenre(genreVerif);
             return genreVerif;
         } else {
-            return dao.getGenre(genreVerif);
+            return genreDAO.getGenre(genreVerif);
         }
     }
 
@@ -174,11 +186,11 @@ public class TraitementDataService {
 
     // Get Pays
     public static Pays getPays (Pays paysVerif) {
-        if(dao.getPays(paysVerif) == null) {
-            dao.createPays(paysVerif);
+        if(paysDAO.getPays(paysVerif) == null) {
+            paysDAO.createPays(paysVerif);
             return paysVerif;
         } else {
-            return dao.getPays(paysVerif);
+            return paysDAO.getPays(paysVerif);
         }
     }
 
@@ -191,16 +203,15 @@ public class TraitementDataService {
         lieuTournage.setLieuTournagePays(l.get("pays").toString());
 
         return getLieuTournage(lieuTournage);
-//        return lieuTournage;
     }
 
     // get LIEU TOURNAGE
     public static LieuTournage getLieuTournage (LieuTournage lieuTournageVerif) {
-        if(dao.getLieuTournage(lieuTournageVerif) == null) {
-            dao.createLieuTournage(lieuTournageVerif);
+        if(lieuTournageDAO.getLieuTournage(lieuTournageVerif) == null) {
+            lieuTournageDAO.createLieuTournage(lieuTournageVerif);
             return lieuTournageVerif;
         } else {
-            return dao.getLieuTournage(lieuTournageVerif);
+            return lieuTournageDAO.getLieuTournage(lieuTournageVerif);
         }
     }
 
@@ -216,11 +227,11 @@ public class TraitementDataService {
 
     // get REALISATEUR
     public static Realisateur getRealisateur (Realisateur realisateurVerif) {
-        if(dao.getRealisateur(realisateurVerif) == null) {
-            dao.createRealisateur(realisateurVerif);
+        if(realisateurDAO.getRealisateur(realisateurVerif) == null) {
+            realisateurDAO.createRealisateur(realisateurVerif);
             return realisateurVerif;
         } else {
-            return dao.getRealisateur(realisateurVerif);
+            return realisateurDAO.getRealisateur(realisateurVerif);
         }
     }
 
@@ -263,11 +274,11 @@ public class TraitementDataService {
 
     // get ACTEUR
     public static Acteur getActeur (Acteur acteurVerif) {
-        if(dao.getActeur(acteurVerif) == null) {
-            dao.createActeur(acteurVerif);
+        if(acteurDAO.getActeur(acteurVerif) == null) {
+            acteurDAO.createActeur(acteurVerif);
             return acteurVerif;
         } else {
-            return dao.getActeur(acteurVerif);
+            return acteurDAO.getActeur(acteurVerif);
         }
     }
 
