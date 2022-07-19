@@ -70,12 +70,24 @@ public class Interaction {
                 String selectS4Acteur1 = scanner.nextLine();
                 System.out.println("* - Veuillez indiquer le 2ème acteur/actrice");
                 String selectS4Acteur2 = scanner.nextLine();
+                List<Film> filmCommunEntre2Acteur = scannerService.selectCommunEntreActeur(selectS4Acteur1, selectS4Acteur2);
+
+                System.out.println("Voici les films commun entre " + selectS4Acteur1 + " et " + selectS4Acteur2 + " :");
+                for (Film film : filmCommunEntre2Acteur) {
+                    System.out.println("-> " + film.getNom());
+                }
             }
             case (5) -> {
                 System.out.println("* - Veuillez indiquer le 1er film");
                 String selectS5Film1 = scanner.nextLine();
                 System.out.println("* - Veuillez indiquer le 2ème film");
                 String selectS5Film2 = scanner.nextLine();
+                List<Acteur> acteurCommunEntre1Film = scannerService.selectActeurCommunEntre1Film(selectS5Film1, selectS5Film2);
+
+                System.out.println("Voici les acteurs commun entre " + selectS5Film1 + " et " + selectS5Film2 + " :");
+                for (Acteur acteur : acteurCommunEntre1Film) {
+                    System.out.println("-> " + acteur.getIdentite());
+                }
             }
             case (6) -> {
                 System.out.println("* - Veuillez indiquer la 1ère année");
@@ -84,6 +96,12 @@ public class Interaction {
                 String selectS6Annee2 = scanner.nextLine();
                 System.out.println("* - Veuillez indiquer un acteur/actrice");
                 String selectS6Acteur = scanner.nextLine();
+                List<Film> filmAvec2ActeursEntre2Date = scannerService.selectFilmAvecActeurEtDate(selectS6Acteur, selectS6Annee1, selectS6Annee2);
+
+                System.out.println("Voici les films qui ont " + selectS6Acteur + " et qui ont été sortie entre " + selectS6Annee1 + " et " + selectS6Annee2 + " :");
+                for (Film film : filmAvec2ActeursEntre2Date) {
+                    System.out.println("-> " + film.getNom());
+                }
             }
             case (9) -> {
                 System.out.println("* - Fin de l'application");

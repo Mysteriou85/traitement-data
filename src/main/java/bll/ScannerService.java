@@ -35,14 +35,34 @@ public class ScannerService {
     }
 
     public static List<Film> selectFilmEntreDate(String date1, String date2) {
-        List<Film> listFilm = filmDAO.getFilmByDate(date1, date2);
-        if (listFilm != null) {
-            return listFilm;
+        List<Film> filmList = filmDAO.getFilmByDate(date1, date2);
+        if (filmList != null) {
+            return filmList;
         }
         return null;
     }
 
     public static List<Film> selectCommunEntreActeur(String acteur1, String acteur2) {
+        List<Film> filmList = filmDAO.getFilmByActeurCommun(acteur1, acteur2);
+        if(filmList != null) {
+            return filmList;
+        }
+        return null;
+    }
 
+    public static List<Acteur> selectActeurCommunEntre1Film(String film1, String film2) {
+        List<Acteur> acteurList = acteurDAO.getActeurByFilmCommun(film1, film2);
+        if(acteurList != null) {
+            return acteurList;
+        }
+        return null;
+    }
+
+    public static List<Film> selectFilmAvecActeurEtDate(String acteur, String date1, String date2) {
+        List<Film> filmList = filmDAO.getFilmByActorAndDate(acteur, date1, date2);
+        if(filmList != null) {
+            return filmList;
+        }
+        return null;
     }
 }

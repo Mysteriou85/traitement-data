@@ -41,4 +41,36 @@ public class FilmDAO {
         query.setParameter("date2", date2);
         return query.getResultList().size() > 0 ? query.getResultList() : null;
     }
+
+    public List<Film> getFilmByActeurCommun(String acteur1, String acteur2) {
+        TypedQuery<Film> query = em.createQuery("SELECT DISTINCT f FROM Film f JOIN f.acteurs a WHERE " +
+                "a.identite = :acteur1 AND " +
+                "f.id IN (SELECT f.id FROM " +
+                "Film f JOIN f.acteurs a WHERE " +
+                "a.identite = :acteur2)", Film.class);
+        query.setParameter("acteur1", acteur1);
+        query.setParameter("acteur2", acteur2);
+
+        return query.getResultList().size() > 0 ? query.getResultList() : null;
+    }
+
+    /**
+     * Récupère une liste de film
+     * @param acteur
+     * @param date1
+     * @param date2
+     * @return
+     */
+    public List<Film> getFilmByActorAndDate(String acteur, String date1, String date2) {
+        TypedQuery<Film> query = em.createQuery("SELECT DISTINCT f FROM Film f JOIN f.acteurs a WHERE " +
+                "a.identite = :acteur AND " +
+                "f.id IN (SELECT f.id FROM " +
+                "Film f JOIN f.acteurs a WHERE " +
+                "f.anneeSortie >= :date1 AND f.anneeSortie <= :date2)", Film.class);
+        query.setParameter("acteur", acteur);
+        query.setParameter("date1", date1);
+        query.setParameter("date2", date2);
+
+        return query.getResultList().size() > 0 ? query.getResultList() : null;
+    }
 }
