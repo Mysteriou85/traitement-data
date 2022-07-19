@@ -9,7 +9,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class App {
+/**
+ * Classe qui permet de convertire le fichier JSON en base de données
+ */
+public class JsonToBaseDonnee {
     private static ConnectionDAO connection;
     private static EntityManager em = connection.getConnectionDAO();
     private static TraitementDataService traitementDataService = new TraitementDataService(em);

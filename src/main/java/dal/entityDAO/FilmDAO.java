@@ -9,17 +9,25 @@ import java.util.List;
 
 public class FilmDAO {
     private final EntityManager em;
-
     public FilmDAO(EntityManager em) {
         this.em = em;
     }
 
+    /**
+     * Méthode qui permet d'enregistré un film dans la base de donnée
+     * @param film
+     */
     public void createFilm (Film film) {
         em.getTransaction().begin();
         em.persist(film);
         em.getTransaction().commit();
     }
 
+    /**
+     * Méthode qui permet de chercher un film dans la base de donné avec un Film
+     * @param film
+     * @return
+     */
     public Film getFilm(Film film) {
         TypedQuery<Film> query = em.createQuery("SELECT f FROM Film f WHERE " +
                 "f.nom =: film", Film.class);
@@ -27,6 +35,11 @@ public class FilmDAO {
         return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
     }
 
+    /**
+     * Méthode qui permet de chercher un film dans la base de donné avec un String
+     * @param film
+     * @return
+     */
     public Film getFilmByString(String film) {
         TypedQuery<Film> query = em.createQuery("SELECT f FROM Film f WHERE " +
                 "f.nom =: film", Film.class);
@@ -34,6 +47,12 @@ public class FilmDAO {
         return query.getResultList().size() > 0 ? query.getResultList().get(0) : null;
     }
 
+    /**
+     * Méthode qui permet de chercher une liste de film dans la base de donné avec deux String
+     * @param date1
+     * @param date2
+     * @return
+     */
     public List<Film> getFilmByDate(String date1, String date2) {
         TypedQuery<Film> query = em.createQuery("SELECT f FROM Film f WHERE " +
                 "f.anneeSortie >= :date1 AND f.anneeSortie <= :date2", Film.class);
@@ -42,6 +61,12 @@ public class FilmDAO {
         return query.getResultList().size() > 0 ? query.getResultList() : null;
     }
 
+    /**
+     * Méthode qui permet de chercher une liste de film dans la base de donné avec deux String
+     * @param acteur1
+     * @param acteur2
+     * @return
+     */
     public List<Film> getFilmByActeurCommun(String acteur1, String acteur2) {
         TypedQuery<Film> query = em.createQuery("SELECT DISTINCT f FROM Film f JOIN f.acteurs a WHERE " +
                 "a.identite = :acteur1 AND " +
@@ -55,7 +80,7 @@ public class FilmDAO {
     }
 
     /**
-     * Récupère une liste de film
+     * Méthode qui permet de chercher une liste de film dans la base de donné avec trois String
      * @param acteur
      * @param date1
      * @param date2

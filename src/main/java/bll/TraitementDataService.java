@@ -9,6 +9,9 @@ import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe qui s'occupe des services pour le traitement des données du fichier JSON en base de donnée
+ */
 public class TraitementDataService {
 
     private static ActeurDAO acteurDAO;
@@ -19,6 +22,10 @@ public class TraitementDataService {
     private static RealisateurDAO realisateurDAO;
     private static RoleDAO roleDAO;
 
+    /**
+     * Constructeur de la classe TraitementDataService
+     * @param em
+     */
     public TraitementDataService(EntityManager em) {
         acteurDAO = new ActeurDAO(em);
         filmDAO = new FilmDAO(em);
@@ -29,13 +36,21 @@ public class TraitementDataService {
         roleDAO = new RoleDAO(em);
     }
 
+    /**
+     * Méthode qui permet d'appeler la création d'un acteur sur la base de donnée
+     * @param o
+     */
     public void saveActeur(Object o) {
 
         Acteur acteur = parseActeur((JSONObject) o);
         acteurDAO.createActeur(acteur);
     }
 
-    // parse ACTEUR
+    /**
+     * Méthode qui permet de parse Acteur
+     * @param a
+     * @return
+     */
     private static Acteur parseActeur(JSONObject a) {
         Acteur acteur = new Acteur();
         acteur.setUrl(a.get("url").toString());
@@ -61,7 +76,11 @@ public class TraitementDataService {
         return acteur;
     }
 
-    // Parse ROLE
+    /**
+     * Méthode qui permet de parse Role
+     * @param r
+     * @return
+     */
     private static Role parseRole(JSONObject r) {
         Role role = new Role();
         role.setPersonnage(r.get("characterName").toString());
@@ -75,7 +94,11 @@ public class TraitementDataService {
         return getRole(role);
     }
 
-    // get ROLE
+    /**
+     * Méthode qui permet d'appeler la création d'un role sur la base de donnée
+     * @param roleVerif
+     * @return
+     */
     public static Role getRole(Role roleVerif) {
         if(roleDAO.getRole(roleVerif) == null) {
             roleDAO.createRole(roleVerif);
@@ -85,7 +108,11 @@ public class TraitementDataService {
         }
     }
 
-    // parse FILM
+    /**
+     * Méthode qui permet de parse Film
+     * @param f
+     * @return
+     */
     private static Film parseFilm(JSONObject f) {
         Film film = new Film();
 
@@ -145,7 +172,11 @@ public class TraitementDataService {
         return getFilm(film);
     }
 
-    // get FILM
+    /**
+     * Méthode qui permet d'appeler la création d'un film sur la base de donnée
+     * @param filmVerif
+     * @return
+     */
     public static Film getFilm(Film filmVerif) {
         if(filmDAO.getFilm(filmVerif) == null) {
             filmDAO.createFilm(filmVerif);
@@ -155,7 +186,11 @@ public class TraitementDataService {
         }
     }
 
-    // Parse GENRE
+    /**
+     * Méthode qui permet de parse Genre
+     * @param g
+     * @return
+     */
     private static Genre parseGenre(String g) {
         Genre genre = new Genre();
 
@@ -164,7 +199,11 @@ public class TraitementDataService {
         return getGenre(genre);
     }
 
-    // Get GENRE
+    /**
+     * Méthode qui permet d'appeler la création d'un genre sur la base de donnée
+     * @param genreVerif
+     * @return
+     */
     public static Genre getGenre(Genre genreVerif) {
         if(genreDAO.getGenre(genreVerif) == null) {
             genreDAO.createGenre(genreVerif);
@@ -174,7 +213,11 @@ public class TraitementDataService {
         }
     }
 
-    // parse PAYS
+    /**
+     * Méthode qui permet de parse Pays
+     * @param p
+     * @return
+     */
     private static Pays parsePays(JSONObject p) {
         Pays pays = new Pays();
 
@@ -184,7 +227,11 @@ public class TraitementDataService {
         return getPays(pays);
     }
 
-    // Get Pays
+    /**
+     * Méthode qui permet d'appeler la création d'un Pays sur la base de donnée
+     * @param paysVerif
+     * @return
+     */
     public static Pays getPays (Pays paysVerif) {
         if(paysDAO.getPays(paysVerif) == null) {
             paysDAO.createPays(paysVerif);
@@ -194,7 +241,11 @@ public class TraitementDataService {
         }
     }
 
-    // parse LIEU TOURNAGE
+    /**
+     * Méthode qui permet de parse un LieuTournage
+     * @param l
+     * @return
+     */
     private static LieuTournage parseLieuTournage(JSONObject l) {
         LieuTournage lieuTournage = new LieuTournage();
 
@@ -205,7 +256,11 @@ public class TraitementDataService {
         return getLieuTournage(lieuTournage);
     }
 
-    // get LIEU TOURNAGE
+    /**
+     * Méthode qui permet d'appeler la création d'un LieuTournage sur la base de donnée
+     * @param lieuTournageVerif
+     * @return
+     */
     public static LieuTournage getLieuTournage (LieuTournage lieuTournageVerif) {
         if(lieuTournageDAO.getLieuTournage(lieuTournageVerif) == null) {
             lieuTournageDAO.createLieuTournage(lieuTournageVerif);
@@ -215,7 +270,11 @@ public class TraitementDataService {
         }
     }
 
-    // parse REALISATEUR
+    /**
+     * Méthode qui permet de parse un Réalisateur
+     * @param r
+     * @return
+     */
     private static Realisateur parseRealisateur(JSONObject r) {
         Realisateur realisateur = new Realisateur();
 
@@ -225,7 +284,11 @@ public class TraitementDataService {
         return getRealisateur(realisateur);
     }
 
-    // get REALISATEUR
+    /**
+     * Méthode qui permet d'appeler la création d'un réalisateur sur la base de donnée
+     * @param realisateurVerif
+     * @return
+     */
     public static Realisateur getRealisateur (Realisateur realisateurVerif) {
         if(realisateurDAO.getRealisateur(realisateurVerif) == null) {
             realisateurDAO.createRealisateur(realisateurVerif);
@@ -235,6 +298,11 @@ public class TraitementDataService {
         }
     }
 
+    /**
+     * Méthode qui permet de parse une liste d'acteur
+     * @param a
+     * @return
+     */
     private static Acteur parseActeurListe(JSONObject a) {
         Acteur acteur = new Acteur();
 
@@ -253,6 +321,11 @@ public class TraitementDataService {
         return getActeur(acteur);
     }
 
+    /**
+     * Méthode qui permet de parse une liste d'action présent dans le casting principale
+     * @param a
+     * @return
+     */
     private static Acteur parseCastingPrincipal(JSONObject a) {
         Acteur acteur = new Acteur();
 
@@ -272,7 +345,11 @@ public class TraitementDataService {
         return getActeur(acteur);
     }
 
-    // get ACTEUR
+    /**
+     * Méthode qui permet d'appeler la création d'un acteur sur la base de donnée
+     * @param acteurVerif
+     * @return
+     */
     public static Acteur getActeur (Acteur acteurVerif) {
         if(acteurDAO.getActeur(acteurVerif) == null) {
             acteurDAO.createActeur(acteurVerif);

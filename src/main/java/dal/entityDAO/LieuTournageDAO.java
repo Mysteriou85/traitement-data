@@ -12,12 +12,21 @@ public class LieuTournageDAO {
         this.em = em;
     }
 
+    /**
+     * Méthode qui permet d'enregistré un lieu de tournage dans la base de donnée
+     * @param lieuTournage
+     */
     public void createLieuTournage (LieuTournage lieuTournage) {
         em.getTransaction().begin();
         em.persist(lieuTournage);
         em.getTransaction().commit();
     }
 
+    /**
+     * Méthode qui permet de chercher un lieu de tournage dans la base de donné avec un LieuTournage
+     * @param lieuTournage
+     * @return
+     */
     public LieuTournage getLieuTournage(LieuTournage lieuTournage) {
         TypedQuery<LieuTournage> query = em.createQuery("SELECT l FROM LieuTournage l WHERE " +
                 "l.lieuTournagePays = :lieuTournagePays AND " +

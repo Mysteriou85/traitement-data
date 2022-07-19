@@ -12,12 +12,21 @@ public class GenreDAO {
         this.em = em;
     }
 
+    /**
+     * Méthode qui permet d'enregistré un genre dans la base de donnée
+     * @param genre
+     */
     public void createGenre (Genre genre) {
         em.getTransaction().begin();
         em.persist(genre);
         em.getTransaction().commit();
     }
 
+    /**
+     * Méthode qui permet de chercher un genre dans la base de donné avec un Genre
+     * @param genre
+     * @return
+     */
     public Genre getGenre(Genre genre) {
         // note le typeGenre correspond à TYPE_GENRE
         TypedQuery<Genre> query = em.createQuery("SELECT g FROM Genre g WHERE g.typeGenre = :genre", Genre.class);

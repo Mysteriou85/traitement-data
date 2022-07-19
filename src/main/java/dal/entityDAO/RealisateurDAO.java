@@ -12,12 +12,21 @@ public class RealisateurDAO {
         this.em = em;
     }
 
+    /**
+     * Méthode qui permet d'enregistré un réalisateur dans la base de donnée
+     * @param realisateur
+     */
     public void createRealisateur (Realisateur realisateur) {
         em.getTransaction().begin();
         em.persist(realisateur);
         em.getTransaction().commit();
     }
 
+    /**
+     * Méthode qui permet de chercher un realisateur dans la base de donné avec un Realisateur
+     * @param realisateur
+     * @return
+     */
     public Realisateur getRealisateur(Realisateur realisateur) {
         TypedQuery<Realisateur> query = em.createQuery("SELECT r FROM Realisateur r WHERE r.identite = :realisateur", Realisateur.class);
         query.setParameter("realisateur", realisateur.getIdentite());
