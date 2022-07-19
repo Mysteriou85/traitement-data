@@ -1,8 +1,11 @@
 import bll.ScannerService;
 import bll.TraitementDataService;
+import bo.entity.Acteur;
+import bo.entity.Film;
 import dal.ConnectionDAO;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.Scanner;
 
 public class Interaction {
@@ -26,20 +29,41 @@ public class Interaction {
                 9 - Sortie de l'application""");
         int selectionMenu = scanner.nextInt();
 
+        // Ajout de la ligne suivante sinon les "nextLine()" ne fonctionne pas
+        scanner.nextLine();
         switch (selectionMenu) {
             case (1) -> {
                 System.out.println("* - Veuillez indiquer un acteur/actrice");
                 String selectS1Acteur = scanner.nextLine();
+                List<Film> filmographieActeur = scannerService.selectFilmParActeur(selectS1Acteur);
+
+                System.out.println("Liste des films dans lequel" + selectS1Acteur + "a joué :");
+                for (Film film : filmographieActeur) {
+                    System.out.println("-> " + film.getNom());
+                }
             }
             case (2) -> {
                 System.out.println("* - Veuillez indiquer un film");
                 String selectS2Film = scanner.nextLine();
+                List<Acteur> casteFilm = scannerService.selectActeurParFilm(selectS2Film);
+
+                System.out.println("Liste de la caste d'acteur de" + selectS2Film + ":");
+                for (Acteur acteur : casteFilm) {
+                    System.out.println("-> " + acteur.getIdentite());
+                }
             }
             case (3) -> {
                 System.out.println("* - Veuillez indiquer la 1ère année");
-                int selectS3Annee1 = scanner.nextInt();
+                String selectS3Annee1 = scanner.nextLine();
                 System.out.println("* - Veuillez indiquer la 2ème année");
-                int selectS3Annee2 = scanner.nextInt();
+                String selectS3Annee2 = scanner.nextLine();
+                List<Film> filmEntreDeuxAnnee = scannerService.selectFilmEntreDate(selectS3Annee1, selectS3Annee2);
+
+                System.out.println("Voici la liste des films sortie entre " + selectS3Annee1 + " et " + selectS3Annee2 + " :");
+                for (Film film : filmEntreDeuxAnnee) {
+                    System.out.println("-> " + film.getNom());
+                }
+
             }
             case (4) -> {
                 System.out.println("* - Veuillez indiquer le 1er acteur/actrice");
@@ -55,9 +79,9 @@ public class Interaction {
             }
             case (6) -> {
                 System.out.println("* - Veuillez indiquer la 1ère année");
-                int selectS6Annee1 = scanner.nextInt();
+                String selectS6Annee1 = scanner.nextLine();
                 System.out.println("* - Veuillez indiquer la 2ème année");
-                int selectS6Annee2 = scanner.nextInt();
+                String selectS6Annee2 = scanner.nextLine();
                 System.out.println("* - Veuillez indiquer un acteur/actrice");
                 String selectS6Acteur = scanner.nextLine();
             }
